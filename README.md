@@ -11,6 +11,11 @@ Once Node.js is installed, run the following command to install pnpm:
 ```bash
 npm install -g pnpm
 ```
+### 3. Install Dependencies
+After cloning the repository, install the project dependencies by running:
+```bash
+pnpm i
+```
 ## Development
 To start development, use:
 ```bash

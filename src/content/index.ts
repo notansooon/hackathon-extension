@@ -1,3 +1,3 @@
-if (window.location.href.includes("pdf")) {
-    chrome.runtime.sendMessage("pdfDetected");
+if (window.location.href.endsWith("pdf")) {
+    chrome.runtime.sendMessage({ type: "pdfDetected" });
 }

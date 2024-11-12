@@ -110,9 +110,12 @@ export const extension = () => {
             name: "Test Extension",
             version: "1",
             manifest_version: 3,
-            action: {},
+            action: {
+                default_popup: "popup.html"
+            },
             content_scripts: [
                 {
+                    "matches": ["*://*/*.pdf"],
                     js: ["content.js"]
                 }
             ],
@@ -120,7 +123,7 @@ export const extension = () => {
                 service_worker: "background.js",
             },
             permissions: ["tabs"],
-            host_permissions: ["<all_urls>"],
+            host_permissions: ["*://*/*.pdf"],
             content_security_policy: {
                 extension_pages: `script-src 'self' 'wasm-unsafe-eval' ${appDevUrl}; object-src 'self'`
             }

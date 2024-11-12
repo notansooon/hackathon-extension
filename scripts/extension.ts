@@ -12,8 +12,8 @@ export const extension = () => {
     const dist = path.resolve(__dirname, "../dist");
 
     /**
-     * Create a dev server for the extension.
-     */
+    * Create a dev server for the extension.
+    */
     async function dev() {
 
         // Create dist folder if it doesn't exist.

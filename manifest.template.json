@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "PDF Simplifier",
+    "version": "1.0",
+    "permissions": ["tabs", "activeTab", "scripting", "storage"],
+    "host_permissions": ["*://*/*.pdf"],
+  
+    "background": {
+      "service_worker": "background.js"
+    },
+  
+    "action": {
+      "default_popup": "popup.html"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": ["*://*/*.pdf"],   
+        "js": ["contentScript.js"]
+      }
+    ]
+  }

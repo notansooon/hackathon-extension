@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx scripts/dev.ts"
+    "dev": "tsx scripts/dev.ts",
+    "postinstall": "cp manifest.template.json manifest.json"
   },
   "keywords": [],
   "author": "",

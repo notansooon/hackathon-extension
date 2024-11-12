@@ -1,3 +1,13 @@
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type == "pdfDetected") {
+        chrome.action.openPopup();
+    }
+})
+
+
+
+/*
+
 chrome.action.onClicked.addListener(() => {
     chrome.tabs.create({ url: "app/index.html" });
 });
@@ -14,3 +24,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             })
     }
 });
+
+*/

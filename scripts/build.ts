@@ -1,1 +1,3 @@
-import { extension } from "../src/index.js";
+import { extension } from "./extension.js";
+
+extension().build();

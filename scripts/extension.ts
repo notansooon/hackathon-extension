@@ -85,15 +85,25 @@ export const extension = () => {
         writeFileSync(path.resolve(dist, "app/index.html"), appDevHtml);
         writeFileSync(path.resolve(dist, "app/hmr.js"), appDevHMRjs);
 
-        // Dev the content script with esbuild.
-        const context = await esbuild.context({
+        // Dev the background script with esbuild.
+        const backgroundContext = await esbuild.context({
             entryPoints: ["src/background/index.ts"],
             bundle: true,
             outfile: path.resolve(dist, "background.js"),
             format: "esm"
         });
 
-        context.watch();
+        backgroundContext.watch();
+
+        // Dev the content script with esbuild.
+        const contentContext = await esbuild.context({
+            entryPoints: ["src/content/index.ts"],
+            bundle: true,
+            outfile: path.resolve(dist, "content.js"),
+            format: "esm"
+        });
+
+        contentContext.watch();
 
         // Create the manifest.
         const manifest: chrome.runtime.ManifestV3 = {
@@ -101,6 +111,11 @@ export const extension = () => {
             version: "1",
             manifest_version: 3,
             action: {},
+            content_scripts: [
+                {
+                    js: ["content.js"]
+                }
+            ],
             background: {
                 service_worker: "background.js",
             },

@@ -1,9 +1,18 @@
+console.log("background loaded")
+
+/**
+ * 
+ 
+ 
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type == "pdfDetected") {
         console.log("hello");
         chrome.action.openPopup();
     }
 })
+
+*/
 
 
 

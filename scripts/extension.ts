@@ -115,7 +115,7 @@ export const extension = () => {
             },
             content_scripts: [
                 {
-                    matches: ["<all_urls>"],
+                    matches: ["*://*/*.pdf"],
                     js: ["content.js"]
                 }
             ],

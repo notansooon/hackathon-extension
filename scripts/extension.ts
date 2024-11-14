@@ -111,11 +111,11 @@ export const extension = () => {
             version: "1",
             manifest_version: 3,
             action: {
-                default_popup: "popup.html"
+                //default_popup: "popup.html"
             },
             content_scripts: [
                 {
-                    "matches": ["*://*/*.pdf"],
+                    matches: ["<all_urls>"],
                     js: ["content.js"]
                 }
             ],

@@ -8,7 +8,7 @@ export function App() {
     const canvas = useRef<HTMLCanvasElement>(null);
 
     async function onClick() {
-        const url = 'https://www.subway.com/-/media/USA/Documents/Nutrition/US_Allergen_chart.pdf';
+        const url = 'https://www.subway.com/-/media/USA/Documents/Nutrition/US_Allergen_chart.pdf'; //get the url
 
         // The workerSrc property shall be specified.
         pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker.default;

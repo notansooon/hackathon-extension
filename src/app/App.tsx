@@ -8,7 +8,7 @@ import { PdfViewer } from "./components/PdfViewer/PdfViewer";
 export function App() {
     const viewerContainer = useRef<HTMLDivElement>(null);
     const viewer = useRef<HTMLDivElement>(null);
-    const [document, setDocument] = useState<pdfjs.PDFDocumentProxy>();
+    const [pdfDocument, setPdfDocument] = useState<pdfjs.PDFDocumentProxy>();
 
     async function init() {
         const params = new URLSearchParams(window.location.search);
@@ -20,7 +20,7 @@ export function App() {
 
         const pdfDocument = await pdfjs.getDocument(url).promise;
 
-        setDocument(pdfDocument);
+        setPdfDocument(pdfDocument);
     }
 
     useEffect(() => {
@@ -33,8 +33,8 @@ export function App() {
                 padding="md"
             >
                 <AppShell.Main>
-                    {document && (
-                        <PdfViewer document={document} />
+                    {pdfDocument && (
+                        <PdfViewer pdf={pdfDocument} />
                     )}
                 </AppShell.Main>
             </AppShell>

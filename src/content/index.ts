@@ -1,8 +1,9 @@
 import { css } from "goober";
 
-const customButton = document.createElement("button");
+const button = document.createElement("button");
 
-customButton.className = css`
+button.innerText = "Open PDF";
+button.className = css`
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -10,10 +11,8 @@ customButton.className = css`
     padding: 10px;
 `;
 
-customButton.innerHTML = "Open PDF";
-
-customButton.addEventListener("click", () => {
+button.addEventListener("click", () => {
     chrome.runtime.sendMessage({ type: "openPdf", url: window.location.href });
 });
 
-document.body.appendChild(customButton);
+document.getElementsByTagName("html")[0]!.appendChild(button);

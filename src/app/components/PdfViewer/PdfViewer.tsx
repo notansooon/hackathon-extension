@@ -1,6 +1,5 @@
 import { PDFDocumentProxy } from "pdfjs-dist";
 import { useEffect, useRef } from "react";
-import "./PdfViewer.css";
 import { EventBus, PDFViewer } from "pdfjs-dist/web/pdf_viewer.mjs";
 
 interface PdfViewerProps {

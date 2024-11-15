@@ -4,10 +4,10 @@ import "./PdfViewer.css";
 import { EventBus, PDFViewer } from "pdfjs-dist/web/pdf_viewer.mjs";
 
 interface PdfViewerProps {
-    document: PDFDocumentProxy;
+    pdf: PDFDocumentProxy;
 }
 
-export function PdfViewer({ document }: PdfViewerProps) {
+export function PdfViewer({ pdf }: PdfViewerProps) {
     const viewerContainer = useRef<HTMLDivElement>(null);
     const viewerElement = useRef<HTMLDivElement>(null);
     const viewer = useRef<PDFViewer>();
@@ -22,7 +22,8 @@ export function PdfViewer({ document }: PdfViewerProps) {
             eventBus,
         });
 
-        pdfViewer.setDocument(document);
+        pdfViewer.setDocument(pdf);
+
         viewer.current = pdfViewer;
     }, [document]);
 

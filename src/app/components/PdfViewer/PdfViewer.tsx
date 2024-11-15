@@ -22,6 +22,7 @@ export function PdfViewer({ pdf }: PdfViewerProps) {
         });
 
         pdfViewer.setDocument(pdf);
+        pdfViewer.refresh(false);
 
         viewer.current = pdfViewer;
     }, [document]);
@@ -29,11 +30,7 @@ export function PdfViewer({ pdf }: PdfViewerProps) {
     return (
         <div
             ref={viewerContainer}
-            style={{ 
-                position: "absolute",
-                width: "100%",
-                height: "100%"
-            }}
+            style={{ position: "absolute" }}
         >
             <div ref={viewerElement} />
         </div>

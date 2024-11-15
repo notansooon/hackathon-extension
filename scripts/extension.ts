@@ -110,9 +110,7 @@ export const extension = () => {
             name: "Test Extension",
             version: "1",
             manifest_version: 3,
-            action: {
-                //default_popup: "popup.html"
-            },
+            action: {},
             content_scripts: [
                 {
                     matches: ["*://*/*.pdf"],

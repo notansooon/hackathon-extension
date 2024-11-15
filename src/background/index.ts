@@ -1,38 +1,20 @@
-console.log("background loaded")
+chrome.runtime.onMessage.addListener((message, sender, respond) => {
+    // Listen for the pdf.
+    if (message.type == "openPdf") {
+        chrome.tabs.create({ url: `app/index.html?url=${message.url}` });
 
-/**
- * 
- 
- 
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type == "pdfDetected") {
-        console.log("hello");
-        chrome.action.openPopup();
+        return;
     }
-})
 
-*/
-
-
-
-/*
-
-chrome.action.onClicked.addListener(() => {
-    chrome.tabs.create({ url: "app/index.html" });
-});
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    // Fetch PDF contents.
     if (message.type === "getPdf") {
         fetch(message.url, {
             mode: "no-cors",
         })
             .then((response) => {
                 response.arrayBuffer().then(buffer => {
-                    sendResponse(buffer);
+                    respond(buffer);
                 });
-            })
+            });
     }
 });
-
-*/

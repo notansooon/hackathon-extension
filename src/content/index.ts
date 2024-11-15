@@ -1,30 +1,19 @@
-import { PassThrough } from "stream";
+import { css } from "goober";
 
-
-const React = await import("react");
-const ReactDOM = await import("react-dom");
-
-console.log("Chrome Extension loaded on PDF page");
 const customButton = document.createElement("button");
 
+customButton.className = css`
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: blue;
+    padding: 10px;
+`;
 
+customButton.innerHTML = "Open PDF";
 
-customButton.id = "parseButton";
-customButton.innerText = "Custom Button";
-customButton.style.position = "fixed";
-customButton.style.top = "10%";
-customButton.style.left = "10px";
-customButton.style.color = "blue";
-customButton.style.padding = "10px";
+customButton.addEventListener("click", () => {
+    chrome.runtime.sendMessage({ type: "openPdf", url: window.location.href });
+});
+
 document.body.appendChild(customButton);
-console.log("Button added to PDF page");
-
-
-document.getElementById("parseButton")?.addEventListener("click", async () => {
-
-    //import the app
-    const { default: App } = await import(".././app/App");
-
-    ReactDOM.render(React.createElement(App),
-    document.getElementById("root"))
-})

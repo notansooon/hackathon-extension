@@ -28,6 +28,8 @@
   "dependencies": {
     "@mantine/core": "^7.13.4",
     "@mantine/hooks": "^7.13.4",
-    "pdfjs-dist": "^4.7.76"
+    "goober": "^2.1.16",
+    "pdfjs-dist": "^4.7.76",
+    "sass": "^1.81.0"
   }
 }

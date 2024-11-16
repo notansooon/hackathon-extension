@@ -9,6 +9,7 @@ interface PdfViewerProps {
 export function PdfViewer({ pdf }: PdfViewerProps) {
     const viewerContainer = useRef<HTMLDivElement>(null);
     const viewerElement = useRef<HTMLDivElement>(null);
+    const pages = useRef();
     const viewer = useRef<PDFViewer>();
 
     useEffect(() => {
@@ -22,7 +23,16 @@ export function PdfViewer({ pdf }: PdfViewerProps) {
         });
 
         pdfViewer.setDocument(pdf);
+        //pdfViewer.currentScale = 0.75;
+        
+         
+        viewerContainer.current?.querySelectorAll("canvas").forEach((canvas) => {
+            canvas.style.width = '30%';  
+            canvas.style.height = 'auto'; 
+        });
+
         pdfViewer.refresh(false);
+        
 
         viewer.current = pdfViewer;
     }, [document]);
@@ -30,9 +40,27 @@ export function PdfViewer({ pdf }: PdfViewerProps) {
     return (
         <div
             ref={viewerContainer}
-            style={{ position: "absolute" }}
+            style={{ 
+            
+                    position: "absolute",
+                    display: "-ms-grid",
+                    gridColumn: "1/2",
+                    width: "100%",
+                    height: "100vh", // Full height for scrolling
+                    overflow: "auto", // Allow scrolling for PDF content
+                
+            }}
         >
-            <div ref={viewerElement} />
+            <div 
+                ref={viewerElement}
+                style={{ 
+                    
+
+                }} 
+                
+                    
+                    
+            />
         </div>
     );
 }

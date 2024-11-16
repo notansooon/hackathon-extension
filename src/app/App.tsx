@@ -30,12 +30,21 @@ export function App() {
     return (
         <MantineProvider>
             <AppShell
-                padding="md"
+                padding="100px"
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: '2fr 1fr',
+                    gap: '20px',
+                }}
             >
                 <AppShell.Main>
-                    {pdfDocument && (
-                        <PdfViewer pdf={pdfDocument} />
-                    )}
+                <div style={{ gridColumn: '1' }}>
+                    {pdfDocument && <PdfViewer pdf={pdfDocument} />}
+                </div>
+                <div style={{ gridColumn: '2', backgroundColor: '#f4f4f4', padding: '20px' }}>
+                
+                </div>
+                
                 </AppShell.Main>
             </AppShell>
         </MantineProvider>

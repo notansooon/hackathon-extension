@@ -1,66 +1,97 @@
-import { PDFDocumentProxy } from "pdfjs-dist";
-import { useEffect, useRef } from "react";
+
+// src/components/PdfViewer/PdfViewer.tsx
+import React, { useEffect, useRef, useState } from "react";
+import { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 import { EventBus, PDFViewer } from "pdfjs-dist/web/pdf_viewer.mjs";
+import "pdfjs-dist/web/pdf_viewer.css"; // Import default styles
 
 interface PdfViewerProps {
-    pdf: PDFDocumentProxy;
+  pdf: PDFDocumentProxy;
+  pageNumber: number;
 }
 
-export function PdfViewer({ pdf }: PdfViewerProps) {
-    const viewerContainer = useRef<HTMLDivElement>(null);
-    const viewerElement = useRef<HTMLDivElement>(null);
-    const pages = useRef();
-    const viewer = useRef<PDFViewer>();
+export const PdfViewer: React.FC<PdfViewerProps> = ({ pdf, pageNumber }) => {
+  const viewerElement = useRef<HTMLCanvasElement>(null);
+  const [page, setPages] = React.useState<PDFPageProxy | null>(null);
+  const pdfViewerRef = useRef<PDFViewer | null>(null);
 
-    useEffect(() => {
-        const container = viewerContainer.current!;
-        const eventBus = new EventBus();
+  useEffect(() => {
+   
+    const renderPages = async () => {
+        const fetchPages = await pdf.getPage(pageNumber);
+        setPages(fetchPages);
 
-        const pdfViewer = new PDFViewer({
-            container,
-            viewer: viewerElement.current!,
-            eventBus,
-        });
+    }
 
-        pdfViewer.setDocument(pdf);
-        //pdfViewer.currentScale = 0.75;
+    renderPages();
+
+  }, [pdf, pageNumber]);
+
+  useEffect(() => {
+
+    const render = async () => {
         
-         
-        viewerContainer.current?.querySelectorAll("canvas").forEach((canvas) => {
-            canvas.style.width = '30%';  
-            canvas.style.height = 'auto'; 
-        });
+        if (!page) return;
+        const viewport = page.getViewport({scale: 1.5});
 
-        pdfViewer.refresh(false);
         
+        const canvas = viewerElement.current;
 
-        viewer.current = pdfViewer;
-    }, [document]);
+        if (!canvas) {
+            console.log('Canvas Error')
+            return
 
-    return (
-        <div
-            ref={viewerContainer}
-            style={{ 
+        }
+        
+        const context = canvas.getContext('2d');
+        console.log(context)
+
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const content = {
+
+            canvasContext: context,
+            viewport: viewport,
+
+        }
+
+        await page.render(content).promise;
+
+
+
+
             
-                    position: "absolute",
-                    display: "-ms-grid",
-                    gridColumn: "1/2",
-                    width: "100%",
-                    height: "100vh", // Full height for scrolling
-                    overflow: "auto", // Allow scrolling for PDF content
-                
-            }}
-        >
-            <div 
-                ref={viewerElement}
-                style={{ 
-                    
 
-                }} 
-                
-                    
-                    
-            />
-        </div>
-    );
-}
+        
+            
+
+        
+        
+
+    }
+
+    render();
+
+  }, [pdf, pageNumber])
+
+  return (
+    <canvas ref={viewerElement}></canvas>
+  );
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

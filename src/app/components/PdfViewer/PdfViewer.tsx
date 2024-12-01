@@ -31,7 +31,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ pdf, pageNumber }) => {
 
     const render = async () => {
         
-        if (!page) return;
+        if (!page) return; 
         const viewport = page.getViewport({scale: 1.5});
 
         
@@ -46,29 +46,21 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ pdf, pageNumber }) => {
         const context = canvas.getContext('2d');
         console.log(context)
 
+        if (!context) {
+          console.log("CanvasRenderingContext2D Error");
+          return; // Stop execution if context is null
+        }
+
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
         const content = {
-
             canvasContext: context,
             viewport: viewport,
 
         }
 
         await page.render(content).promise;
-
-
-
-
-            
-
-        
-            
-
-        
-        
-
     }
 
     render();

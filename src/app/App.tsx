@@ -5,6 +5,10 @@ import { AppShell, Flex, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { PdfViewer } from "./components/PdfViewer/PdfViewer";
 
+import { extractText } from "../services/TextExtractor"
+
+
+
 export function App() {
     const viewerContainer = useRef<HTMLDivElement>(null);
     const viewer = useRef<HTMLDivElement>(null);
@@ -26,6 +30,15 @@ export function App() {
         const loadPDF = await pdfjs.getDocument(url).promise;
         setPdfDocument(loadPDF);
         setTotalPages(loadPDF._pdfInfo.numPages);
+
+       
+
+
+        extractText(url, pages);
+        
+
+        
+        
 
     }
 

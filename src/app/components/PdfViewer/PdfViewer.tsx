@@ -3,8 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 import { EventBus, PDFViewer } from "pdfjs-dist/web/pdf_viewer.mjs";
-import "pdfjs-dist/web/pdf_viewer.css"; // Import default styles
-
+import "pdfjs-dist/web/pdf_viewer.css"; 
 
 interface PdfViewerProps {
   pdf: PDFDocumentProxy;
@@ -31,11 +30,9 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ pdf, pageNumber }) => {
   useEffect(() => {
 
     const render = async () => {
-        
         if (!page) return; 
-        const viewport = page.getViewport({scale: 1.5});
+        const viewport = page.getViewport({scale: 1.0});
 
-        
         const canvas = viewerElement.current;
 
         if (!canvas) {
@@ -49,9 +46,8 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ pdf, pageNumber }) => {
 
         if (!context) {
           console.log("CanvasRenderingContext2D Error");
-          return; // Stop execution if context is null
+          return; 
         }
-
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
@@ -60,31 +56,17 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ pdf, pageNumber }) => {
             viewport: viewport,
 
         }
-
         await page.render(content).promise;
     }
 
+    
     render();
 
   }, [pdf, pageNumber])
 
   return (
     <canvas ref={viewerElement}></canvas>
+    
   );
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

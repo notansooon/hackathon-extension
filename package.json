@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx scripts/dev.ts",
-    "build": "tsx scripts/build.ts"
+    "build": "tsx scripts/build.ts",
+    "server": "server.js"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +29,10 @@
   "dependencies": {
     "@mantine/core": "^7.13.4",
     "@mantine/hooks": "^7.13.4",
+    "dotenv": "^16.4.6",
+    "express": "^4.21.1",
     "goober": "^2.1.16",
+    "openai": "^4.74.0",
     "pdfjs-dist": "^4.7.76",
     "sass": "^1.81.0"
   }

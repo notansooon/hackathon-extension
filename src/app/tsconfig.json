@@ -1,11 +1,11 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "moduleResolution": "Bundler",
-        "jsx": "react-jsx",
-        "strict": true,
-        "types": ["vite/client", "@types/dom-chromium-ai", "@types/chrome"]
-    },
+  "compilerOptions": {
+    "target": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "types": ["vite/client", "@types/dom-chromium-ai", "@types/chrome"]
+  },
 
-    "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

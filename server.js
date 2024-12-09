@@ -1,47 +1,45 @@
-import dotenv from "dotenv";
-import express from "express";
-import { OpenAI } from "openai";
+import dotenv from 'dotenv';
+import express from 'express';
+import { OpenAI } from 'openai';
 dotenv.config();
 
+const app = express();
+app.use(express.json());
 
+const openai = new OpenAI({
+  apiKey:
+    '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',
+});
 
-const app = express()
+app.get('/test', (req, res) => {
+  res.send('test');
+});
 
+app.post('/getResponse', async (req, res) => {
+  try {
+    const { inputText } = req.body;
+    console.log(req.body);
 
+    // Process the text using ChatGPT (or any other logic)
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [{ role: 'user', content: `Simplify this text: ${inputText}` }],
+    });
 
-const openai = new OpenAI(  
-  {
-    apiKey: "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", 
+    //debug
+    console.log('test');
+    console.log(response.choices[0].message.content);
+
+    // Extract the response text and send it back to the client
+    const simplifiedText = response.choices[0].message.content;
+    res.send(simplifiedText);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Error processing request.');
   }
-  
-) 
-  
+});
 
-app.post("/getResponse", async (req, res) => {
-    try {
-      const { inputText } = req.body; // Extract the input text
-  
-      // Process the text using ChatGPT (or any other logic)
-      const response = await openai.createChatCompletion({
-        model: "gpt-4",
-        messages: [{ role: "user", content: `Simplify this text: ${inputText}` }],
-      });
-  
-      // Extract the response text and send it back to the client
-      const simplifiedText = response.data.choices[0].message.content;
-      res.send(simplifiedText);
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Error processing request.");
-    }
-  });
-  const PORT = 5173
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  })
-
-
-
-
-
-
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

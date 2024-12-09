@@ -1,9 +1,8 @@
-
 // src/components/PdfViewer/PdfViewer.tsx
-import React, { useEffect, useRef, useState } from "react";
-import { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
-import { EventBus, PDFViewer } from "pdfjs-dist/web/pdf_viewer.mjs";
-import "pdfjs-dist/web/pdf_viewer.css"; 
+import React, { useEffect, useRef, useState } from 'react';
+import { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
+import { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer.mjs';
+import 'pdfjs-dist/web/pdf_viewer.css';
 
 interface PdfViewerProps {
   pdf: PDFDocumentProxy;
@@ -16,57 +15,45 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ pdf, pageNumber }) => {
   const pdfViewerRef = useRef<PDFViewer | null>(null);
 
   useEffect(() => {
-   
     const renderPages = async () => {
-        const fetchPages = await pdf.getPage(pageNumber);
-        setPages(fetchPages);
-
-    }
+      const fetchPages = await pdf.getPage(pageNumber);
+      setPages(fetchPages);
+    };
 
     renderPages();
-
   }, [pdf, pageNumber]);
 
   useEffect(() => {
-
     const render = async () => {
-        if (!page) return; 
-        const viewport = page.getViewport({scale: 1.0});
+      if (!page) return;
+      const viewport = page.getViewport({ scale: 1.5 });
 
-        const canvas = viewerElement.current;
+      const canvas = viewerElement.current;
 
-        if (!canvas) {
-            console.log('Canvas Error')
-            return
+      if (!canvas) {
+        console.log('Canvas Error');
+        return;
+      }
 
-        }
-        
-        const context = canvas.getContext('2d');
-        console.log(context)
+      const context = canvas.getContext('2d');
+      console.log(context);
 
-        if (!context) {
-          console.log("CanvasRenderingContext2D Error");
-          return; 
-        }
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+      if (!context) {
+        console.log('CanvasRenderingContext2D Error');
+        return;
+      }
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
 
-        const content = {
-            canvasContext: context,
-            viewport: viewport,
+      const content = {
+        canvasContext: context,
+        viewport: viewport,
+      };
+      await page.render(content).promise;
+    };
 
-        }
-        await page.render(content).promise;
-    }
-
-    
     render();
+  }, [pdf, pageNumber]);
 
-  }, [pdf, pageNumber])
-
-  return (
-    <canvas ref={viewerElement}></canvas>
-    
-  );
+  return <canvas ref={viewerElement}></canvas>;
 };
-

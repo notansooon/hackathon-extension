@@ -1,5 +1,3 @@
-import { extension } from "./extension.js";
+import { extension } from './extension.js';
 
-extension().dev()
-
-
+extension().dev();

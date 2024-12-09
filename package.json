@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx scripts/dev.ts",
+    "dev:extension": "tsx scripts/dev.ts",
+    "dev:server": "node server.js",
+    "dev": "concurrently \"pnpm dev:extension\" \"pnpm dev:server\"",
     "build": "tsx scripts/build.ts",
     "server": "server.js"
   },
@@ -20,7 +22,9 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
+    "concurrently": "^9.1.0",
     "esbuild": "^0.24.0",
+    "prettier": "3.4.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tsx": "^4.19.1",

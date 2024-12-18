@@ -26,14 +26,15 @@ export function GptViewer({ link, text }: GptViewerProps) {
 
       const result = await getData.text();
       setResponse(result);
-    } catch (error: any) {
+    } 
+    catch (error: any) {
       setResponse(`Error: ${error.message}`);
     }
   }
 
   return (
     <>
-      <button onClick={fetchData}> Parse Button</button>
+      <button onClick={fetchData}> Parse Button </button>
       <div style={{ position: 'relative' }}>
         <p>{response}</p>
       </div>

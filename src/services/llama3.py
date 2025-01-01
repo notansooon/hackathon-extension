@@ -1,9 +1,6 @@
-
 from transformers import AutoTokenizer, AutoModelForCausalLM 
 
-
-model_type = "/opt/anaconda3/lib/python3.12/site-packages"
-
+model_type = "meta-llama/Llama-3.3-70B-Instruct"
 
 tokenizer = AutoTokenizer.from_pretrained(model_type)
 model = AutoModelForCausalLM.from_pretrained(model_type)

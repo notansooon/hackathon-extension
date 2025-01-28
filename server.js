@@ -8,7 +8,7 @@ app.use(express.json());
 
 const openai = new OpenAI({
   apiKey:
-    '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',
+    '',
 });
 
 app.get('/test', (req, res) => {
